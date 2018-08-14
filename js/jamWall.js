@@ -1584,6 +1584,7 @@ function jamWall_load_init(){
 			point1
 		];
 		this.width = obj.wallWidth*obj.scaleGap;
+		this.uuid=guid();
 		this.getLength=function(){
 			return getWallLength(that)/obj.scaleGap;
 		}
