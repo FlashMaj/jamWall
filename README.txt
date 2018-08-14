@@ -25,9 +25,10 @@ jamWall.aroundWalls
 //对象可用属性/方法
 vectorPoint.position//{x:x,y:y}
 linePoint.position
-articles.position
-articles.spec
-articles.rotation.y
+article.position
+article.spec
+article.rotation.y
+article.ratio//墙上物件相对于墙的位置
 
 wall.points//端点数组
 wall.getPosition()
