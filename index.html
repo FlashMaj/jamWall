@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jamWall</title>
+		<script type="text/javascript" src="js/jamWall.js" ></script>
+	</head>
+	<body>
+		<button>开启画板</button>
+		<script>
+			/*
+			 * init
+			 */
+			//创建jamWall对象
+			var jamWall = new JamWall();
+			//设置完成事件函数
+			jamWall.finish(function(){
+				alert("创建户型中...");
+				jamWall.hidden();
+			});
+			
+			
+			
+			/*
+			 * 添加自定义菜单/按钮
+			 */
+			//创建菜单
+			jamWall.createMenu("onTheWall");
+			jamWall.createMenu("onTheFloor");
+			
+		 	//在预设的articles菜单中添加按钮
+			jamWall.menus["articles"].add(new jamWall.Button("articles",function(){
+				jamWall.toMenu("onTheWall");//指向菜单
+			},"墙上物件"));
+			jamWall.menus["articles"].add(new jamWall.Button("articles",function(){
+				jamWall.toMenu("onTheFloor");//指向菜单
+			},"地面物件"));
+			jamWall.menus["articles"].add(new jamWall.Button("articles",function(){
+				alert("第三个参数为绘制函数时可以显示一个图形按钮");
+			},function(drawArgs){
+				let context=drawArgs.context,
+					x0=drawArgs.x0,//按钮左上角坐标
+					y0=drawArgs.y0,//按钮左上角坐标
+					width=drawArgs.width;//按钮边长
+				context.fillStyle="red";
+				context.beginPath();
+					context.arc(x0+width/2,y0+width/2,width/6,0,Math.PI*2,false);
+				context.closePath();
+				context.fill();
+			},"第四可选参数为提示框文字,第五可选参数为提示框方向",2));
+			
+			//为自定义菜单添加按钮
+			jamWall.menus["onTheWall"].add(new jamWall.Button("onTheWall",function(){
+				jamWall.initArticle({
+					name:"door_01",
+					color:"red",
+					onFloor:false,
+					width:1
+				});
+			},"门    1*2 m²"));
+			jamWall.menus["onTheWall"].add(new jamWall.Button("onTheWall",function(){
+				jamWall.initArticle({
+					name:"picture",
+					color:"blue",
+					onFloor:false,
+					width:2,
+					//height:0.1  此属性为图形宽度而非物件实际高度，实际高度请根据name属性自行匹配，默认为墙宽 过薄难操作
+					direction:true//墙侧物件
+				});
+			},"壁画1"));
+			jamWall.menus["onTheFloor"].add(new jamWall.Button("onTheFloor",function(){
+				jamWall.initArticle({
+					name:"table01",
+					color:"blue",
+					onFloor:true,
+					width:4,
+					height:1.5 
+				});
+			},"桌子01"));
+			
+			
+			/*
+			 * 显示画布
+			 */
+			document.getElementsByTagName("button")[0].onclick=function(){
+				jamWall.show();
+			}
+		</script>
+	</body>
+</html>
