@@ -188,6 +188,9 @@ function jamWall_load_init(){
 		{	
 			//domElement
 			this.domElementContainer=document.createElement("div");
+			this.domElementContainer.oncontextmenu=function(){
+				return false;
+			}
 			this.canvas=document.createElement("canvas");
 			this.context=this.canvas.getContext("2d");
 			
@@ -272,7 +275,7 @@ function jamWall_load_init(){
 		
 		
 		//非二次开发下面代码基本不用看
-		//state
+		//status
 		this.mousePosition={
 			x:0,
 			y:0
@@ -295,7 +298,7 @@ function jamWall_load_init(){
              * 配合operation使用
              */
         this.isMouseDown=false;
-		this.mouseMoved=true;//判断点击后鼠标是否移动，用来判断对点单击
+        this.mouseDownPosition={x:0,y:0};
 		this.wallLine=new WallLine(0,0);//直线工具
 		this.wallRect=new WallRect(0,0);//矩形工具
 		this.aroundId=1;//自增数字，用以匹配围墙端点
@@ -894,14 +897,6 @@ function jamWall_load_init(){
 	function show(obj){
 		obj.active=true;
 		obj.domElementContainer.style.display="block";
-		if(window.oncontextmenu!=null){
-			obj.hasOncontextmenu=true;
-		}else{
-			obj.hasOncontextmenu=false;
-		}
-		window.oncontextmenu = function(){
-			return false;
-		};
 		addEventListeners(obj);
 		animate(obj);
 	}
@@ -909,9 +904,6 @@ function jamWall_load_init(){
 	function hidden(obj){
 		obj.active=false;
 		obj.domElementContainer.style.display="none";
-		if(!obj.hasOncontextmenu){
-			window.oncontextmenu = function(){};
-		}
 		removeEventListeners(obj);
 	}
 	
@@ -964,16 +956,15 @@ function jamWall_load_init(){
 		let clicked=false;//是否是无移动的单击
 		obj.isMouseDown=false;
 		let clickSame=false;//是否点击的是同一个墙/点
-		if(!obj.mouseMoved){
-			onClick(e,obj)
-			clicked=true;
-		};
-		
 		let mouseX=e.pageX-obj.canvas.offsetLeft,
 			mouseY=e.pageY-obj.canvas.offsetTop;
 		let absolutePosition={
 			x:mouseX*obj.canvasRatio+obj.canvasPosition.x,
 			y:mouseY*obj.canvasRatio+obj.canvasPosition.y
+		};
+		if(obj.mouseDownPosition.x==mouseX&&obj.mouseDownPosition.y==mouseY){
+			onClick(e,obj)
+			clicked=true;
 		};
 		if(e.button==0){
 			
@@ -1081,12 +1072,13 @@ function jamWall_load_init(){
 		obj.articleMoveDetal.dr=0;
 	}
 	function onMouseDown(e,obj){
-		obj.mouseMoved=false;
 		obj.button=e.button;
 		obj.isMouseDown=true;
 		obj.promptBox.active=false;
 		let mouseX=e.pageX-obj.canvas.offsetLeft,
 			mouseY=e.pageY-obj.canvas.offsetTop;
+		obj.mouseDownPosition.x=mouseX;
+		obj.mouseDownPosition.y=mouseY;
 		let absolutePosition={
 			x:mouseX*obj.canvasRatio+obj.canvasPosition.x,
 			y:mouseY*obj.canvasRatio+obj.canvasPosition.y
@@ -1231,7 +1223,6 @@ function jamWall_load_init(){
 		}
 	}
 	function onMouseMove(e,obj){
-		obj.mouseMoved=true;
 		let mouseX=e.pageX-obj.canvas.offsetLeft,
 			mouseY=e.pageY-obj.canvas.offsetTop;
 		let movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0,
