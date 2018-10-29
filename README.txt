@@ -1,87 +1,87 @@
 jamWall.js  v2.0.0   FlashMaj   qq:1106219402  2018.07.17
-¸Õ¸Õ±ÏÒµ£¬³Ã×Å»¹ÓÐÊ±¼ä·­ÐÂÁËÒ»Ð©ÏîÄ¿£¬Õâ¸öÊÇÖØÖÃµÄjamWall»®Ç½²å¼þ£¬¿ÉÒÔÓÃÀ´»æÖÆ»§ÐÍ²¢·µ»ØÕæÊµ×ø±ê¡£
+è¿™ä¸ªæ˜¯é‡ç½®çš„jamWallåˆ’å¢™æ’ä»¶ï¼Œå¯ä»¥ç”¨æ¥ç»˜åˆ¶æˆ·åž‹å¹¶è¿”å›žçœŸå®žåæ ‡ã€‚
 
 
 
 /*
- *»ñÈ¡£º
+ *èŽ·å–ï¼š
  */
-//ÊýÖµÒÔmÎªµ¥Î»
-//ÊýÖµÐèÒªÔÚfinish()Ö´ÐÐºó»òÔÚÖ´ÐÐjamWall.updateInfo()·½·¨ºó»ñÈ¡
+//æ•°å€¼ä»¥mä¸ºå•ä½
+//æ•°å€¼éœ€è¦åœ¨finish()æ‰§è¡ŒåŽæˆ–åœ¨æ‰§è¡ŒjamWall.updateInfo()æ–¹æ³•åŽèŽ·å–
 
-//Ç½Ìå¶ËµãÊý×é£º
+//å¢™ä½“ç«¯ç‚¹æ•°ç»„ï¼š
 jamWall.vectorPoints
-//Ç½ÉÏ¶ËµãÊý×é£º
+//å¢™ä¸Šç«¯ç‚¹æ•°ç»„ï¼š
 jamWall.linePoints
-//Îï¼þÊý×é£º
+//ç‰©ä»¶æ•°ç»„ï¼š
 jamWall.articles
 
-//Ç½Ìå¶ÔÏóÊý×é£º
+//å¢™ä½“å¯¹è±¡æ•°ç»„ï¼š
 jamWall.walls
-//ÊÒÄÚÎ§Ç½Êý×é£º
+//å®¤å†…å›´å¢™æ•°ç»„ï¼š
 jamWall.aroundWalls
 
 
-//¶ÔÏó¿ÉÓÃÊôÐÔ/·½·¨
+//å¯¹è±¡å¯ç”¨å±žæ€§/æ–¹æ³•
 vectorPoint.position//{x:x,y:y}
 linePoint.position
 article.position
 article.spec
 article.rotation.y
-article.ratio//Ç½ÉÏÎï¼þÏà¶ÔÓÚÇ½µÄÎ»ÖÃ
+article.ratio//å¢™ä¸Šç‰©ä»¶ç›¸å¯¹äºŽå¢™çš„ä½ç½®
 
-wall.points//¶ËµãÊý×é
+wall.points//ç«¯ç‚¹æ•°ç»„
 wall.getPosition()
 wall.getRotationY()
-wall.getLength()//Ç½³¤
-wall.getWidth()//Ç½¿í
+wall.getLength()//å¢™é•¿
+wall.getWidth()//å¢™å®½
 
-aroundWalls.points//¶ËµãÊý×é
-aroundWalls.aroundId//Î§Ç½Î¨Ò»id
+aroundWalls.points//ç«¯ç‚¹æ•°ç»„
+aroundWalls.aroundId//å›´å¢™å”¯ä¸€id
 
 
 
 /*
- *¿ÉÉèÖÃÊôÐÔ/¹¦ÄÜ£ºÓÐµã¶à..ÔÚjsÎÄ¼þÖÐ¿´×¢ÊÍ°É...
+ *å¯è®¾ç½®å±žæ€§/åŠŸèƒ½ï¼šæœ‰ç‚¹å¤š..åœ¨jsæ–‡ä»¶ä¸­çœ‹æ³¨é‡Šå§...
  */
 
 
 
 /*
- *¿ÉÓÃ·½·¨
+ *å¯ç”¨æ–¹æ³•
  */
 jamWall.show();
 jamWall.hidden();
-jamWall.finish(fun);//Íê³É»æ»­ºóÖ´ÐÐº¯Êý £¬ µã»÷¶Ô¹´°´Å¥´¥·¢
-jamWall.updateInfo();//¸üÐÂÊµ¼Ê×ø±êÊý¾Ý£¨»­²¼×ø±ê(px)ÎªÊµÊ±µÄ£¬Êµ¼Ê×ø±ê(m)ÐèÒª×ª»»£¬jamWall.finish()»á×Ô¶¯´Ëº¯Êý£©
-jamWall.changeRatio(ratio);//¸Ä±ä»­²¼±ÈÀý£¬´«ÈëÖµÎªÒ»µ¥Î»¾àÀë¶ÔÓ¦Ã×Êý
-jamWall.clean();//Çå¿Õ»­²¼
-jamWall.createMenu(menuName);//´´½¨ÐÂ²Ëµ¥  0¡¢"0"¡¢"primaryMenu"¡¢1¡¢"1"¡¢"articles"ÎªÒÑÕ¼ÓÃ²Ëµ¥Ãû
-jamWall.toMenu(menuName);//½øÈë²Ëµ¥
-menu.add(button);//Îª²Ëµ¥Ìí¼Ó°´Å¥
-jamWall.turnTheMenuBack();//·µ»ØÉÏÒ»¼¶²Ëµ¥
-jamWall.initArticle(spec);//Ö´ÐÐÌí¼ÓÎï¼þ²Ù×÷
-jamWall.changeOperation(operationType);//¸Ä±äµ±Ç°²Ù×÷×´Ì¬
-jamWall.createSlider(  //Ìí¼Ó»¬¶¯Ìõ
-	changeFun,//·½·¨£¬ÄÜ¹»´«ÈëÊýÖµ
+jamWall.finish(fun);//å®Œæˆç»˜ç”»åŽæ‰§è¡Œå‡½æ•° ï¼Œ ç‚¹å‡»å¯¹å‹¾æŒ‰é’®è§¦å‘
+jamWall.updateInfo();//æ›´æ–°å®žé™…åæ ‡æ•°æ®ï¼ˆç”»å¸ƒåæ ‡(px)ä¸ºå®žæ—¶çš„ï¼Œå®žé™…åæ ‡(m)éœ€è¦è½¬æ¢ï¼ŒjamWall.finish()ä¼šè‡ªåŠ¨æ­¤å‡½æ•°ï¼‰
+jamWall.changeRatio(ratio);//æ”¹å˜ç”»å¸ƒæ¯”ä¾‹ï¼Œä¼ å…¥å€¼ä¸ºä¸€å•ä½è·ç¦»å¯¹åº”ç±³æ•°
+jamWall.clean();//æ¸…ç©ºç”»å¸ƒ
+jamWall.createMenu(menuName);//åˆ›å»ºæ–°èœå•  0ã€"0"ã€"primaryMenu"ã€1ã€"1"ã€"articles"ä¸ºå·²å ç”¨èœå•å
+jamWall.toMenu(menuName);//è¿›å…¥èœå•
+menu.add(button);//ä¸ºèœå•æ·»åŠ æŒ‰é’®
+jamWall.turnTheMenuBack();//è¿”å›žä¸Šä¸€çº§èœå•
+jamWall.initArticle(spec);//æ‰§è¡Œæ·»åŠ ç‰©ä»¶æ“ä½œ
+jamWall.changeOperation(operationType);//æ”¹å˜å½“å‰æ“ä½œçŠ¶æ€
+jamWall.createSlider(  //æ·»åŠ æ»‘åŠ¨æ¡
+	changeFun,//æ–¹æ³•ï¼Œèƒ½å¤Ÿä¼ å…¥æ•°å€¼
 	{
-		minValue:minValue,//×î´óÊýÖµ
-		maxValue:maxValue,//×îÐ¡ÊýÖµ
-		title:"»­²¼±ÈÀý"//ÌáÊ¾¿òÎÄ×Ö
-		defaultValue:1,//Ä¬ÈÏÊýÖµ£¬·Ç±ØÐë£¬²»ÌîÐ´ÎªÆ½¾ùÖµ	
+		minValue:minValue,//æœ€å¤§æ•°å€¼
+		maxValue:maxValue,//æœ€å°æ•°å€¼
+		title:"ç”»å¸ƒæ¯”ä¾‹"//æç¤ºæ¡†æ–‡å­—
+		defaultValue:1,//é»˜è®¤æ•°å€¼ï¼Œéžå¿…é¡»ï¼Œä¸å¡«å†™ä¸ºå¹³å‡å€¼	
 });
 
 
 
 
 /*
- *Àà
+ *ç±»
  */
-JamWall();//jamWall¹¹ÔìÆ÷
-jamWall.Button(menuName,clickFun,textOrDraw,promptText,promptBoxPositionType);//°´Å¥¹¹Ôì·½·¨
-//²ÎÊýËµÃ÷£º
-//menuName±ØÐë²ÎÊý£ºËùÔÚ²Ëµ¥Ãû
-//clickFun±ØÐë²ÎÊý£ºµã»÷ºóÖ´ÐÐº¯Êý
-//textOrDraw±ØÐëº¯Êý£º´«Èë×Ö·û´®Ê±°´Å¥ÏÔÊ¾ÎÄ×Ö£¬´«Èë»æÖÆ·½·¨Ê±°´Å¥ÏÔÊ¾Í¼±êÍ¼ÐÎ
-//promptText¿ÉÑ¡²ÎÊý£ºÌáÊ¾¿òÎÄ×Ö
-//promptBoxPositionType¿ÉÑ¡²ÎÊý£ºÌáÊ¾¿òÏà¶ÔÓÚÊó±êµÄ·½ÏòµÄ¼¸ÖÖÔ¤ÉèÀàÐÍ£¬ÕûÊý0¡¢1¡¢2¡¢3
+JamWall();//jamWallæž„é€ å™¨
+jamWall.Button(menuName,clickFun,textOrDraw,promptText,promptBoxPositionType);//æŒ‰é’®æž„é€ æ–¹æ³•
+//å‚æ•°è¯´æ˜Žï¼š
+//menuNameå¿…é¡»å‚æ•°ï¼šæ‰€åœ¨èœå•å
+//clickFunå¿…é¡»å‚æ•°ï¼šç‚¹å‡»åŽæ‰§è¡Œå‡½æ•°
+//textOrDrawå¿…é¡»å‡½æ•°ï¼šä¼ å…¥å­—ç¬¦ä¸²æ—¶æŒ‰é’®æ˜¾ç¤ºæ–‡å­—ï¼Œä¼ å…¥ç»˜åˆ¶æ–¹æ³•æ—¶æŒ‰é’®æ˜¾ç¤ºå›¾æ ‡å›¾å½¢
+//promptTextå¯é€‰å‚æ•°ï¼šæç¤ºæ¡†æ–‡å­—
+//promptBoxPositionTypeå¯é€‰å‚æ•°ï¼šæç¤ºæ¡†ç›¸å¯¹äºŽé¼ æ ‡çš„æ–¹å‘çš„å‡ ç§é¢„è®¾ç±»åž‹ï¼Œæ•´æ•°0ã€1ã€2ã€3
